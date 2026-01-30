@@ -1,0 +1,6 @@
+numpy
+opencv-python
+matplotlib
+tensorflow>=2.10.0  # Needed to load the .h5 model
+scikit-learn        # If you used train_test_split in inference
+pandas              # If you used it for data loading
