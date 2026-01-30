@@ -1,3 +1,4 @@
+````markdown
 # Error Bar Detection Task
 
 A comprehensive computer vision pipeline for detecting error bars in scientific plots. This project implements two complementary approaches: a Deep Learning Regression CNN (trained on synthetic data) and a Hybrid Heuristic Walker (robust to label noise).
@@ -5,75 +6,104 @@ A comprehensive computer vision pipeline for detecting error bars in scientific 
 ## 📂 Repository Structure
 
 ```text
-error-bar-detection/
+ERROR BAR DETECTION FINAL/
 │
-├── 1_synthetic_generation/   # Part 1: Dataset Creation
-│   ├── generate_dataset.py   # Procedural generation script (Matplotlib)
-│   └── audit_synthetic.py    # Visual QA tool for generated data
+├── synthetic_generation/
+│   ├── generate_data.py       # Generates synthetic dataset (Matplotlib)
+│   └── audit_predictions.py   # Visual QA tool
 │
-├── 2_detection_methods/      # Part 2: Detection Logic
-│   ├── deep_learning/
-│   │   ├── train_kaggle.ipynb # Jupyter notebook for GPU training
-│   │   └── inference_cnn.py   # Script to predict using the .h5 model
+├── detection_methods/
+│   ├── Deep Learning/
+│   │   ├── train_model_kaggle.ipynb  # GPU Training Notebook
+│   │   └── predict_ml.py             # CNN Inference Script
 │   │
-│   └── hybrid_walker/
-│       ├── predictor.py      # The 'HybridErrorDetector' class (Main Logic)
-│       └── run_walker.py     # Script to run the walker on a folder
+│   └── Hybrid Walker/
+│       └── Predictor.py              # Hybrid Walker Algorithm
 │
-├── 3_analysis_audits/        # Analysis Tools
-│   ├── full_audit.py         # Generates 4-panel comparison images
-│   └── audit_real_data.py    # Visualizes Ground Truth vs Predictions
-│
-├── requirements.txt          # Project dependencies
-└── README.md                 # Project documentation
+├── requirements.txt           # Project dependencies
+└── readme.md                  # Project documentation
+```
+````
+
+## 🚀 Quick Start
+
+### 1. Installation
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+
 ```
 
-🚀 Quick Start
+### 2. Generate Synthetic Data
 
-1. Installation
-   Install the required dependencies:
+Run the generator script to create the synthetic training data:
 
-Bash
-pip install -r requirements.txt 2. Generate Synthetic Data
-To generate a fresh batch of 3,000 labeled images:
+```bash
+python synthetic_generation/generate_data.py
 
-Bash
-python 1_synthetic_generation/generate_dataset.py
-Output will be saved to dataset_v7_production/.
+```
 
-3. Training the Model
-   The CNN model is optimized for cloud training.
+- **Output:** This will create a folder named `dataset_v8_backgrounds`.
 
-File: 2_detection_methods/deep_learning/train_kaggle.ipynb
+### ⚠️ IMPORTANT: Dataset Setup
 
-Instruction: Upload this notebook to Kaggle or Google Colab, enable GPU Acceleration (T4), and attach the synthetic dataset.
+The detection scripts are configured to look for a production-ready folder name.
+**Please rename the generated folder before running inference:**
 
-Output: Download the resulting error_bar_model.h5 and place it in the root directory.
+1. **Delete** any existing `dataset_v7_production` folder if it exists.
+2. **Rename** the generated `dataset_v8_backgrounds` to `dataset_v7_production`.
 
-4. Running Inference (Hybrid Walker)
-   To run the robust heuristic walker on your local machine:
+### 3. Training the Model
 
-Bash
-python 2_detection_methods/hybrid_walker/run_walker.py --input "path/to/test_images"
-🧠 Methodology
-Approach 1: Deep Learning (CNN)
-Architecture: Custom VGG-style regression network.
+The CNN model is optimized for cloud training.
 
-Input: 192x64 vertical patch crops.
+- **File:** `detection_methods/Deep Learning/train_model_kaggle.ipynb`
+- **Instruction:** Upload this notebook to Kaggle or Google Colab, enable **GPU (T4)**, and upload the synthetic dataset.
+- **Output:** Download the resulting `error_bar_model_ml.h5` and place it in the project root directory.
 
-Strategy: Trained on 3,000 synthetic images using Mixed Precision training. Highly effective for texture invariance (e.g., distinguishing dashed lines).
+### 4. Running Inference
 
-Approach 2: Hybrid Walker (Recommended)
+Both detection scripts run automatically on the `dataset_v7_production` folder.
+
+**Run Hybrid Heuristic Walker:**
+
+```bash
+python "detection_methods/Hybrid Walker/Predictor.py"
+
+```
+
+_Results will be saved to: `detection_results_v6_hybrid_`
+
+**Run Deep Learning Inference:**
+
+```bash
+python "detection_methods/Deep Learning/predict_ml.py"
+
+```
+
+_Results will be saved to: `detection_results_ml_`
+
+## 🧠 Methodology
+
+### Approach 1: Deep Learning (CNN)
+
+- **Architecture:** Custom VGG-style regression network.
+- **Strategy:** Trained on 3,000 synthetic images using Mixed Precision training. Highly effective for texture invariance (e.g., distinguishing dashed lines).
+
+### Approach 2: Hybrid Walker (Recommended)
+
 A rule-based algorithm developed to handle "Sim-to-Real" gaps and label noise.
 
-Logic: Uses adaptive thresholding to identify ink, "walks" from the marker center, and jumps gaps (e.g., inside hollow markers).
+- **Logic:** Uses adaptive thresholding and "Strict Cap Detection" to distinguish real error bars from axis lines.
+- **Performance:** Successfully identifies error bars even when ground truth labels are inconsistent.
 
-Feature: Includes "Strict Cap Detection" to distinguish real error bars from axis lines.
+## 🔗 Project Links
 
-📊 Results
-Synthetic MAE: ~4.5 pixels (CNN)
+- [Technical Report PDF](https://drive.google.com/file/d/1SSzOeEl9Wd6MqpI1-UZbB4ox1HlMNQvD/view?usp=sharing)
+- [Generated Dataset (Google Drive)](https://drive.google.com/drive/folders/16upJmQ-A5x2g6ACZB2ujH0E8rEyzP352?usp=sharing)
 
-🔗 Project Links
-Technical Report PDF
+```
 
-Generated Dataset (Google Drive)
+```
