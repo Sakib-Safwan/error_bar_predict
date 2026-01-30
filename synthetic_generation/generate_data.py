@@ -9,7 +9,7 @@ import matplotlib.lines as mlines
 
 # --- CONFIGURATION ---
 NUM_IMAGES = 3000  # Change to 3000 for full run
-OUTPUT_DIR = "dataset_v8_backgrounds"
+OUTPUT_DIR = "dataset_v7_production"
 IMG_DIR = os.path.join(OUTPUT_DIR, "images")
 LBL_DIR = os.path.join(OUTPUT_DIR, "labels")
 IMG_SIZE = (12, 10) 
