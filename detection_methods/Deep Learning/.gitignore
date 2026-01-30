@@ -1,0 +1,23 @@
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Virtual Environments
+venv/
+env/
+.env
+
+# IDE settings
+.vscode/
+.idea/
+
+# Large Datasets (Don't push these!)
+dataset_v7_production/
+dataset_sample/
+*.zip
+
+# Model files (Optional: If >100MB, git rejects them. If small, remove this line)
+# *.h5
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
