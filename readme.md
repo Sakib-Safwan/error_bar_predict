@@ -63,10 +63,17 @@ Input: 192x64 vertical patch crops.
 
 Strategy: Trained on 3,000 synthetic images using Mixed Precision training. Highly effective for texture invariance (e.g., distinguishing dashed lines).
 
-Approach 2: Hybrid Walker
+Approach 2: Hybrid Walker (Recommended)
+A rule-based algorithm developed to handle "Sim-to-Real" gaps and label noise.
+
 Logic: Uses adaptive thresholding to identify ink, "walks" from the marker center, and jumps gaps (e.g., inside hollow markers).
 
 Feature: Includes "Strict Cap Detection" to distinguish real error bars from axis lines.
 
 📊 Results
 Synthetic MAE: ~4.5 pixels (CNN)
+
+🔗 Project Links
+Technical Report PDF
+
+Generated Dataset (Google Drive)
